@@ -1,6 +1,6 @@
 # RevenueCat
 
-[![PkgGoDev](https://pkg.go.dev/badge/pkg.go.dev/github.com/mhemmings/revenuecat)](https://pkg.go.dev/pkg.go.dev/github.com/mhemmings/revenuecat)
+[![PkgGoDev](https://pkg.go.dev/badge/github.com/mhemmings/revenuecat)](https://pkg.go.dev/github.com/mhemmings/revenuecat)
 [![Test](https://github.com/mhemmings/revenuecat/workflows/Test/badge.svg?branch=master)](https://github.com/mhemmings/revenuecat/actions?query=workflow%3ATest)
 
 Go package for interacting with the [RevenueCat API](https://docs.revenuecat.com/reference).

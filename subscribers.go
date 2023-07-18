@@ -13,7 +13,7 @@ type Subscriber struct {
 	LastSeen                   time.Time                      `json:"last_seen"`
 	Entitlements               map[string]Entitlement         `json:"entitlements"`
 	Subscriptions              map[string]Subscription        `json:"subscriptions"`
-	NonSubscriptions           map[string]NonSubscription     `json:"non_subscriptions"`
+	NonSubscriptions           map[string][]NonSubscription   `json:"non_subscriptions"`
 	SubscriberAttributes       map[string]SubscriberAttribute `json:"subscriber_attributes"`
 }
 

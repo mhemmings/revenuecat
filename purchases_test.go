@@ -16,7 +16,7 @@ func TestCreatePurchaseWithoutOpts(t *testing.T) {
 
 	cl.expectMethod(t, "POST")
 	cl.expectPath(t, "/v1/receipts")
-	cl.expectXPlatform(t, "")
+	cl.expectXPlatform(t, "ios")
 	cl.expectBody(t, `{"app_user_id":"123","fetch_token":"testreceipt"}`)
 }
 

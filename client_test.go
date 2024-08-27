@@ -60,6 +60,14 @@ func (c *mockClient) expectXPlatform(t *testing.T, expected string) {
 	}
 }
 
+func (c *mockClient) expectXIsSandbox(t *testing.T, expected string) {
+	t.Helper()
+
+	if sandbox := c.request.Header.Get("x-is-sandbox"); sandbox != expected {
+		t.Errorf("expected x-is-sandbox: %q, got x-is-sandbox: %q", expected, sandbox)
+	}
+}
+
 func (c *mockClient) expectBody(t *testing.T, expected string) {
 	t.Helper()
 	bodyBytes, err := ioutil.ReadAll(c.request.Body)

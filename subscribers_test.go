@@ -20,6 +20,36 @@ func TestGetSubscriber(t *testing.T) {
 	cl.expectPath(t, "/v1/subscribers/123")
 }
 
+func TestGetSubscriberSandbox(t *testing.T) {
+	cl := newMockClient(t, 200, nil, nil)
+	rc := New("apikey", WithSandboxEnabled(true))
+	rc.http = cl
+
+	_, err := rc.GetSubscriber("123")
+	if err != nil {
+		t.Errorf("error: %v", err)
+	}
+
+	cl.expectMethod(t, "GET")
+	cl.expectPath(t, "/v1/subscribers/123")
+	cl.expectXIsSandbox(t, "true")
+}
+
+func TestGetSubscriberSandboxDisabled(t *testing.T) {
+	cl := newMockClient(t, 200, nil, nil)
+	rc := New("apikey", WithSandboxEnabled(false))
+	rc.http = cl
+
+	_, err := rc.GetSubscriber("123")
+	if err != nil {
+		t.Errorf("error: %v", err)
+	}
+
+	cl.expectMethod(t, "GET")
+	cl.expectPath(t, "/v1/subscribers/123")
+	cl.expectXIsSandbox(t, "")
+}
+
 func TestGetSubscriberWithPlatform(t *testing.T) {
 	cl := newMockClient(t, 200, nil, nil)
 	rc := New("apikey")

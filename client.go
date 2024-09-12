@@ -11,10 +11,13 @@ import (
 
 // Client makes authorized calls to the RevenueCat API.
 type Client struct {
-	apiKey string
-	apiURL string
-	http   doer
+	apiKey  string
+	apiURL  string
+	http    doer
+	sandbox bool
 }
+
+type Option func(*Client)
 
 type doer interface {
 	Do(req *http.Request) (*http.Response, error)
@@ -22,14 +25,40 @@ type doer interface {
 
 // New returns a new *Client for the provided API key.
 // For more information on authentication, see https://docs.revenuecat.com/docs/authentication.
-func New(apiKey string) *Client {
-	return &Client{
+func New(apiKey string, opts ...Option) *Client {
+	c := &Client{
 		apiKey: apiKey,
 		apiURL: "https://api.revenuecat.com/v1/",
 		http: &http.Client{
-			// Set a long timeout here since calls to Apple are probably invloved.
+			// Set a long timeout here since calls to Apple are probably involved.
 			Timeout: 10 * time.Second,
 		},
+	}
+	for _, opt := range opts {
+		opt(c)
+	}
+
+	return c
+}
+
+// WithHTTPClient - Option to set the HTTP client
+func WithHTTPClient(client doer) Option {
+	return func(c *Client) {
+		c.http = client
+	}
+}
+
+// WithAPIURL - Option to set the API URL
+func WithAPIURL(url string) Option {
+	return func(c *Client) {
+		c.apiURL = url
+	}
+}
+
+// WithSandboxEnabled - Option to enable or disable sandbox mode
+func WithSandboxEnabled(enabled bool) Option {
+	return func(c *Client) {
+		c.sandbox = enabled
 	}
 }
 
@@ -51,6 +80,10 @@ func (c *Client) call(method, path string, reqBody interface{}, platform string,
 
 	if platform != "" {
 		req.Header.Add("X-Platform", platform)
+	}
+
+	if c.sandbox {
+		req.Header.Add("X-Is-Sandbox", "true")
 	}
 
 	resp, err := c.http.Do(req)

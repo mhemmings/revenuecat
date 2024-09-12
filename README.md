@@ -7,7 +7,7 @@ Go package for interacting with the [RevenueCat API](https://docs.revenuecat.com
 
 ## Usage
 
-### Example
+### Examples
 
 ```go
 package main
@@ -23,7 +23,34 @@ func main() {
 	sub, _ := rc.GetSubscriber("123")
 	entitled := sub.IsEntitledTo("premium")
 
-	fmt.Println("user entitled: %t", entitled)
+	fmt.Printf("user entitled: %t\n", entitled)
+}
+```
+
+#### Client With Options
+
+```go
+package main
+
+import (
+	"fmt"
+	"net/http"
+	"time"
+
+	"github.com/mhemmings/revenuecat"
+)
+
+func main() {
+	customClient := &http.Client{
+		Timeout: 20 * time.Second,
+	}
+
+	rc := revenuecat.New("apikey", revenuecat.WithHTTPClient(customClient), revenuecat.WithSandboxEnabled(true), revenuecat.WithAPIURL("https://custom.api.url/v1/"))
+
+	sub, _ := rc.GetSubscriber("123")
+	entitled := sub.IsEntitledTo("premium")
+
+	fmt.Printf("user entitled: %t\n", entitled)
 }
 ```
 

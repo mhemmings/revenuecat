@@ -19,9 +19,11 @@ type Subscriber struct {
 
 // https://docs.revenuecat.com/reference#the-entitlement-object
 type Entitlement struct {
-	ExpiresDate       time.Time `json:"expires_date"`
-	PurchaseDate      time.Time `json:"purchase_date"`
-	ProductIdentifier string    `json:"product_identifier"`
+	ExpiresDate            time.Time  `json:"expires_date"`
+	GracePeriodExpiresDate *time.Time `json:"grace_period_expires_date"`
+	PurchaseDate           time.Time  `json:"purchase_date"`
+	ProductIdentifier      string     `json:"product_identifier"`
+	ProductPlanIdentifier  string     `json:"product_plan_identifier"`
 }
 
 // https://docs.revenuecat.com/reference#the-subscription-object

@@ -28,14 +28,19 @@ type Entitlement struct {
 
 // https://docs.revenuecat.com/reference#the-subscription-object
 type Subscription struct {
-	ExpiresDate             *time.Time `json:"expires_date"`
-	PurchaseDate            time.Time  `json:"purchase_date"`
-	OriginalPurchaseDate    time.Time  `json:"original_purchase_date"`
-	PeriodType              PeriodType `json:"period_type"`
-	Store                   Store      `json:"store"`
-	IsSandbox               bool       `json:"is_sandbox"`
-	UnsubscribeDetectedAt   *time.Time `json:"unsubscribe_detected_at"`
-	BillingIssuesDetectedAt *time.Time `json:"billing_issues_detected_at"`
+	ExpiresDate             *time.Time    `json:"expires_date"`
+	PurchaseDate            time.Time     `json:"purchase_date"`
+	OriginalPurchaseDate    time.Time     `json:"original_purchase_date"`
+	PeriodType              PeriodType    `json:"period_type"`
+	Store                   Store         `json:"store"`
+	IsSandbox               bool          `json:"is_sandbox"`
+	UnsubscribeDetectedAt   *time.Time    `json:"unsubscribe_detected_at"`
+	BillingIssuesDetectedAt *time.Time    `json:"billing_issues_detected_at"`
+	AutoResumeDate          *time.Time    `json:"auto_resume_date"`
+	GracePeriodExpiresDate  *time.Time    `json:"grace_period_expires_date"`
+	RefundedAt              *time.Time    `json:"refunded_at"`
+	OwnershipType           OwnershipType `json:"ownership_type"`
+	StoreTransactionID      string        `json:"store_transaction_id"`
 }
 
 // https://docs.revenuecat.com/reference#section-the-non-subscription-object
@@ -60,6 +65,14 @@ const (
 	NormalPeriodType PeriodType = "normal"
 	TrialPeriodType  PeriodType = "trial"
 	IntroPeriodType  PeriodType = "intro"
+)
+
+// OwnershipType holds the predefined values for a subscription ownership type.
+type OwnershipType string
+
+const (
+	PurchasedOwnershipType    OwnershipType = "PURCHASED"
+	FamilySharedOwnershipType OwnershipType = "FAMILY_SHARED"
 )
 
 // PeriodType holds the predefined values for a store.

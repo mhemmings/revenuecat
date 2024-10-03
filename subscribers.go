@@ -75,7 +75,7 @@ const (
 	FamilySharedOwnershipType OwnershipType = "FAMILY_SHARED"
 )
 
-// PeriodType holds the predefined values for a store.
+// Store holds the predefined values for a store.
 type Store string
 
 // https://docs.revenuecat.com/reference#the-subscription-object

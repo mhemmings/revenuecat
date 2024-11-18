@@ -41,6 +41,7 @@ type Subscription struct {
 	RefundedAt              *time.Time    `json:"refunded_at"`
 	OwnershipType           OwnershipType `json:"ownership_type"`
 	StoreTransactionID      string        `json:"store_transaction_id"`
+	ProductPlanIdentifier   string        `json:"product_plan_identifier"`
 }
 
 // https://docs.revenuecat.com/reference#section-the-non-subscription-object
